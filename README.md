@@ -1462,102 +1462,102 @@ Para las referencias hice el trabajo de reunir sitios oficiales, artículos cien
 
 - Host ASP.NET Core on Linux with Nginx. Microsoft.
 
-<https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-9.0&tabs=linux-ubuntu>
+  <https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-9.0&tabs=linux-ubuntu>
 
 - Deploying with GitHub Actions. GitHub.
 
-<https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-with-github-actions>
+  <https://docs.github.com/en/actions/use-cases-and-examples/deploying/deploying-with-github-actions>
 
 - Using secrets in GitHub Actions. GitHub.
 
-<https://docs.github.com/es/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions>
+  <https://docs.github.com/es/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions>
 
 - Securing CI/CD with secrets and variables. GitHub.
 
-<https://resources.github.com/learn/pathways/automation/advanced/securing-ci-cd-pipelines-with-secrets-and-variables/>
+  <https://resources.github.com/learn/pathways/automation/advanced/securing-ci-cd-pipelines-with-secrets-and-variables/>
 
 - Install and configure a MySQL server - Ubuntu. Ubuntu.
 
-<https://documentation.ubuntu.com/server/how-to/databases/install-mysql/index.html>
+  <https://documentation.ubuntu.com/server/how-to/databases/install-mysql/index.html>
 
 - Installing MySQL on Linux. MySql
 
-<https://dev.mysql.com/doc/refman/8.4/en/linux-installation.html>
+  <https://dev.mysql.com/doc/refman/8.4/en/linux-installation.html>
 
 - How to point a domain to Hostinger. Hostinger.
 
-<https://support.hostinger.com/en/articles/1863967-how-to-point-a-domain-to-hostinger>
+  <https://support.hostinger.com/en/articles/1863967-how-to-point-a-domain-to-hostinger>
 
 - Quickstart: Install SQL Server and create a database on Ubuntu. Microsoft.
 
-<https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu?view=sql-server-ver17&tabs=ubuntu2004>
+  <https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-ubuntu?view=sql-server-ver17&tabs=ubuntu2004>
 
 - Generating a new SSH key and adding it to the ssh-agent. GitHub.
 
-<https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent>
+  <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent>
 
 - Inicio rápido: Ejecución de imágenes de contenedor de SQL Server para Linux con Docker. Microsoft
 
-<https://learn.microsoft.com/es-es/sql/linux/quickstart-install-connect-docker?view=sql-server-ver17&tabs=cli&pivots=cs1-bash>
+  <https://learn.microsoft.com/es-es/sql/linux/quickstart-install-connect-docker?view=sql-server-ver17&tabs=cli&pivots=cs1-bash>
 
 - Microsoft SQL Server - Ubuntu based images. DockerHub.
 
-<https://hub.docker.com/r/microsoft/mssql-server>
+  <https://hub.docker.com/r/microsoft/mssql-server>
 
 - How to Install MySQL on Ubuntu – Step-by-Step Guide. DigitalOcean.
 
-<https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04>
+  <https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04>
 
 - How to Create an SSH Key in Linux: Easy Step-by-Step Guide. DigitalOcean.
 
-<https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server>
+  <https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server>
 
 - How To Configure Nginx as a Reverse Proxy on Ubuntu 22.04. DigitalOcean.
 
-<https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-on-ubuntu-22-04>
+  <https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-on-ubuntu-22-04>
 
 - NGINX. Darin.web.id.
 
-<https://darin.web.id/linux/nginx-basic/NGINX_A_Practical_Guide_Preview_Edition.pdf>
+  <https://darin.web.id/linux/nginx-basic/NGINX_A_Practical_Guide_Preview_Edition.pdf>
 
 ## 15.2 Videos recomendados
 
 - SSL, TLS, HTTPS Explained – ByteByteGo.
 
-<https://www.youtube.com/watch?v=j9QmMEWmcfo&t>
+  <https://www.youtube.com/watch?v=j9QmMEWmcfo&t>
 
 - ¿Qué es HTTPS y cómo funciona? – Soy Dalto.
 
-<https://www.youtube.com/watch?v=JKyVWiD0U6o>
+  <https://www.youtube.com/watch?v=JKyVWiD0U6o>
 
 - CI/CD with GitHub Actions \[8 of 8\] | .NET on Azure for Beginners – Dotnet.
 
-<https://www.youtube.com/watch?v=7LkRipTlTzc>
+  <https://www.youtube.com/watch?v=7LkRipTlTzc>
 
 - CI/CD Tutorial using GitHub Actions - Automated Testing & Deployments – Tom Shaw.
 
-<https://www.youtube.com/watch?v=YLtlz88zrLg>
+  <https://www.youtube.com/watch?v=YLtlz88zrLg>
 
 - Configure NGINX as a Reverse Proxy – NGINX
 
-<https://www.youtube.com/watch?v=lZVAI3PqgHc>
+  <https://www.youtube.com/watch?v=lZVAI3PqgHc>
 
 - Setting up an Nginx Reverse Proxy – Tech Blog
 
-<https://www.youtube.com/watch?v=yiO7dm4cIMw>
+  <https://www.youtube.com/watch?v=yiO7dm4cIMw>
 
 - Deploying DotNet Core to Linux | Blazor Deploy Linux – Coding Droplets
 
-<https://www.youtube.com/watch?v=bXK-F-uL7Qo>
+  <https://www.youtube.com/watch?v=bXK-F-uL7Qo>
 
 - **Cómo subir Web C# .NET a VPS y HOSTING – Maxi Programa.**
 
-<https://www.youtube.com/watch?v=JqHWoCO7FyM>
+  <https://www.youtube.com/watch?v=JqHWoCO7FyM>
 
 - ¿Qué es un VPS y cuál elegir en 2025? – Victor Robles WEB.
 
-<https://www.youtube.com/watch?v=sBPbWdMU1FM>
+  <https://www.youtube.com/watch?v=sBPbWdMU1FM>
 
 - Microsoft SQL Server desde Docker Tutorial – Fazt Code.
 
-<https://www.youtube.com/watch?v=uHz9xOiaBbw>
+  <https://www.youtube.com/watch?v=uHz9xOiaBbw>
