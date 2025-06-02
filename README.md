@@ -94,7 +94,7 @@ Desde su computadora personal, abra una consola o terminal (en Windows puede usa
 
 Ejecute el siguiente comando, reemplazando ip por la dirección IP pública que le asignó Hostinger:
 ```bash
-_ssh root@ip_
+ssh root@ip
 ```
 
 
@@ -742,7 +742,7 @@ Identifique la línea que contiene dotnet NameProject.dll y obtenga el **PID** (
 Detenga el proceso con:
 
 ```bash
-kill -9 &lt;PID&gt;
+kill -9 &lt<PID>;
 ```
 
 - **Volver a subir el proyecto actualizado**:
@@ -750,7 +750,7 @@ kill -9 &lt;PID&gt;
 Desde su equipo local:
 
 ```bash
-scp -r "C:\\Ruta-Proyecto-Publicado\\NameProject" root@&lt;IP_VPS&gt;:/var/www/api
+scp -r "C:\\Ruta-Proyecto-Publicado\\NameProject" root@<IP_VPS>:/var/www/api
 ```
 
 - **Reiniciar la API**:
@@ -823,7 +823,7 @@ Dentro de su repositorio, cree un archivo en la ruta:
 .github/workflows/deploy.yml
 
 Agregue el siguiente contenido, adaptándolo según su proyecto:
-
+```bash
 name: Deploy .NET API to VPS
 
 on: push: branches: \[main\] # Cambie si usa otra rama
@@ -857,6 +857,8 @@ key: ${{ secrets.SSH_PRIVATE_KEY }}
 script: |  
 systemctl restart nameproject.service  
 \# Cambie 'nameproject' por el nombre real del servicio creado  
+```
+
 En su primer push, es normal que el último paso falle, ya que el servicio aún no ha sido creado en la VPS. Esto se resolverá al configurar el servicio en la siguiente sección.
 
 ## 9.4 Probar el despliegue automático
@@ -893,11 +895,13 @@ sudo nano /etc/systemd/system/nameproject.service
 
 Se abrirá un archivo vacío. Ingrese el siguiente contenido, adaptado a su proyecto:
 
+```bash
 \[Unit\] Description=API .NET de Productos After=network.target
 
 \[Service\] WorkingDirectory=/var/www/api/NameProject/publish/ ExecStart=/usr/bin/dotnet /var/www/api/NameProject/publish/NameProject.dll Restart=always RestartSec=5 KillSignal=SIGINT SyslogIdentifier=nameproject User=root Environment=ASPNETCORE_ENVIRONMENT=Production Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 
 \[Install\] WantedBy=multi-user.target
+```
 
 ¿Qué es ExecStart?
 
@@ -986,6 +990,7 @@ sudo nano /etc/nginx/sites-available/nameproject
 
 Ingrese el siguiente contenido (ajuste el puerto si su API no usa el 5000):
 
+```bash
 server { listen 80; server_name \_;
 
 location / {  
@@ -1000,6 +1005,7 @@ proxy_set_header X-Forwarded-Proto $scheme;
 }  
 
 }
+```
 
 Reemplace el puerto 5000 por el puerto real en el que su API esté corriendo.
 
@@ -1230,6 +1236,7 @@ sudo nano /etc/nginx/sites-available/apinameproject
 
 Y escriba en él algo como esto (modifique el nombre del subdominio y el puerto):
 
+```bash
 server { listen 80; server_name apinameproject.midominio.com;
 
 location / {  
@@ -1244,6 +1251,8 @@ proxy_set_header X-Forwarded-Proto $scheme;
 }  
 
 }
+
+```
 
 Cambie:
 
@@ -1283,6 +1292,7 @@ sudo nano /etc/nginx/sites-available/nameproject
 
 Modifica el parámetro server_name para que coincida con el dominio configurado (por ejemplo, api.midominio.com). El contenido del archivo debería quedar así:
 
+```bash
 server { listen 80; server_name api.midominio.com;
 
 location / {  
@@ -1297,6 +1307,8 @@ proxy_set_header X-Forwarded-Proto $scheme;
 }  
 
 }
+
+```
 
 Asegúrate de usar el puerto correcto si tu API no corre en 5000.
 
@@ -1379,11 +1391,13 @@ sudo nano /etc/systemd/system/nameproject.service
 
 Contenido del archivo (modificar rutas y nombre del proyecto):
 
+```bash
 \[Unit\] Description=API .NET de Productos After=network.target
 
 \[Service\] WorkingDirectory=/var/www/api/NameProject/publish/ ExecStart=/usr/bin/dotnet /var/www/api/NameProject/publish/NameProject.dll Restart=always RestartSec=5 KillSignal=SIGINT SyslogIdentifier=nameproject User=root Environment=ASPNETCORE_ENVIRONMENT=Production Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 
 \[Install\] WantedBy=multi-user.target
+```
 
 Activar el servicio:
 
@@ -1403,6 +1417,7 @@ sudo nano /etc/nginx/sites-available/nameproject
 
 Contenido del archivo:
 
+```bash
 server { listen 80; server_name api.midominio.com;
 
 location / {  
@@ -1417,6 +1432,7 @@ proxy_set_header X-Forwarded-Proto $scheme;
 }
 
 }
+```
 
 ## 13.3 Activar y recargar configuración NGINX
 
