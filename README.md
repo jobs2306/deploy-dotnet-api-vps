@@ -634,11 +634,8 @@ Explicación de ssh-keygen -t ed25519 -C "mi-clave-ssh"
 | **Parte del comando** | **Significado** |
 | --- | --- |
 | ssh-keygen | Es la herramienta estándar en sistemas Unix/Linux (y disponible en Windows) para **generar claves SSH**. |
-| --- | --- |
 | \-t ed25519 | Indica el **tipo de clave** que se va a generar. En este caso, se elige el algoritmo ed25519, que es moderno, seguro y más eficiente que el tradicional rsa. |
-| --- | --- |
 | \-C "mi-clave-ssh" | Es un **comentario** que se añade a la clave pública para identificarla fácilmente. No afecta a la funcionalidad, pero es útil si maneja varias claves. |
-| --- | --- |
 
 Hasta este punto, la VPS ya cuenta con el sistema operativo configurado, .NET Runtime instalado y MySQL Server en funcionamiento. A continuación, se explicarán dos formas de desplegar la Web API .NET dentro de la VPS.
 
@@ -803,13 +800,9 @@ Settings → Secrets and variables → Actions → Repository secrets
 Cree los siguientes secrets:
 
 | **Name** | **Contenido** |
-| --- | --- |
 | SSH_PRIVATE_KEY | El contenido completo del archivo id_ed25519 (clave privada, sin extensión) generado en el paso 5 |
-| --- | --- |
 | VPS_USER | El nombre del usuario (por defecto: root) |
-| --- | --- |
 | VPS_HOST | La IP pública de su VPS |
-| --- | --- |
 
 ## 9.3 Crear el archivo deploy.yml
 
@@ -1109,25 +1102,15 @@ A continuación se explica a detalle todas las diferencias y características a 
 | ¿Qué es? | Nombre o dirección del sitio web | Espacio en un servidor para alojar tu sitio | Servidor virtual con recursos dedicados |
 | --- | --- | --- | --- |
 | Función principal | Redirigir usuarios al sitio (resuelve a una IP) | Almacenar los archivos del sitio web | Control completo del entorno del servidor |
-| --- | --- | --- | --- |
 | Accesible por humanos | ✅ Sí (nombre amigable) | 🚫 No directamente | 🚫 No directamente |
-| --- | --- | --- | --- |
 | Requiere conocimientos técnicos | ❌ No | ❌ No (en la mayoría de casos) | ✅ Sí (manejo de sistema operativo, terminal) |
-| --- | --- | --- | --- |
 | Recursos del sistema | No aplica | Compartidos con otros usuarios | Dedicados (RAM, CPU, almacenamiento virtual) |
-| --- | --- | --- | --- |
 | Acceso root / administrador | ❌ No | ❌ No | ✅ Sí |
-| --- | --- | --- | --- |
 | Personalización del entorno | ❌ No | ❌ Muy limitada | ✅ Total |
-| --- | --- | --- | --- |
 | Seguridad | No aplica | Básica (depende del proveedor) | Alta (más aislamiento y control) |
-| --- | --- | --- | --- |
 | Ideal para | Darle nombre a un sitio | Sitios pequeños o medianos | Sitios con alto tráfico, apps personalizadas |
-| --- | --- | --- | --- |
 | Ejemplo | [www.miempresa.com](http://www.miempresa.com/) | Donde vives los archivos del sitio | Tu propio mini-servidor virtual |
-| --- | --- | --- | --- |
 | Costo aproximado | Bajo (pago anual) | Bajo (pago mensual/anual) | Medio a alto (según recursos contratados) |
-| --- | --- | --- | --- |
 
 En la siguiente sección se explicará cómo conectar un dominio adquirido con la IP pública de la VPS, para permitir solicitudes externas a su API o sitio web de forma profesional, y cómo asegurar la conexión mediante HTTPS con Certbot.
 
@@ -1151,30 +1134,20 @@ Explicación de las casillas:
 | **Tipo** | **Significado** | **Ejemplo de uso** |
 | --- | --- | --- |
 | A   | Apunta un nombre de dominio a una dirección IP IPv4. | api.midominio.com → 31.97.12.69 |
-| --- | --- | --- |
 | AAAA | Igual que A, pero para direcciones IPv6. | No es necesario si se usa IPv4 |
-| --- | --- | --- |
 | CNAME | Alias de otro nombre de dominio. | [www.midominio.com](https://www.midominio.com/) → midominio.com |
-| --- | --- | --- |
 | MX  | Dirección del servidor de correo. | (No se usa para API o web) |
-| --- | --- | --- |
 | TXT | Texto arbitrario (verificaciones, SPF, etc). | (No aplica para apuntar al VPS) |
-| --- | --- | --- |
 
 - Host / Nombre: Este campo indica qué parte del dominio se está configurando. Se suele llamar "Host" o "Nombre".
 
 | **Nombre** | **Resultado final** | **Qué significa** |
 | --- | --- | --- |
 | @   | [davo.com](http://davo.com/) | El dominio raíz (principal) |
-| --- | --- | --- |
 | api | [api.davo.com](http://api.davo.com/) | Subdominio usado típicamente para APIs |
-| --- | --- | --- |
 | www | [www.davo.com](http://www.davo.com/) | Subdominio común para sitios web |
-| --- | --- | --- |
 | backend | [backend.davo.com](http://backend.davo.com/) | Otro subdominio personalizado |
-| --- | --- | --- |
 | prueba | [prueba.davo.com](http://prueba.davo.com/) | Subdominio temporal o de pruebas |
-| --- | --- | --- |
 
 Lo que escriba en este campo se convierte en un subdominio.
 
@@ -1217,11 +1190,8 @@ Ejemplos:
 | **API** | **Subdominio sugerido** | **Resultado final** |
 | --- | --- | --- |
 | API de productos | apiproductos | apiproductos.midominio.com |
-| --- | --- | --- |
 | API de usuarios | apiusuarios | apiusuarios.midominio.com |
-| --- | --- | --- |
 | API de pedidos | apipedidos | apipedidos.midominio.com |
-| --- | --- | --- |
 
 Aunque podría nombrarlas api1, api2, etc., se recomienda usar nombres descriptivos para facilitar la identificación a futuro.
 
