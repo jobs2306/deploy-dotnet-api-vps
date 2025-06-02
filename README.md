@@ -287,13 +287,9 @@ Dentro del cliente de MySQL:
 
 ```bash
 CREATE DATABASE dbbim;
-
 CREATE USER 'userbim'@'localhost' IDENTIFIED BY 'ClaveFuerte123!';
-
 GRANT ALL PRIVILEGES ON dbbim.\* TO 'userbim'@'localhost';
-
 FLUSH PRIVILEGES;
-
 EXIT;
 ```
 
@@ -328,7 +324,6 @@ Ejecute:
 
 ```bash
 curl <https://packages.microsoft.com/keys/microsoft.asc> | sudo apt-key add -
-
 curl <https://packages.microsoft.com/config/ubuntu/22.04/mssql-server-2022.list> | sudo tee /etc/apt/sources.list.d/mssql-server.list
 ```
 
@@ -701,7 +696,7 @@ Esto crea el directorio donde se almacenará el proyecto.
 Desde su equipo local, utilice scp para transferir la carpeta del proyecto a la VPS:
 
 ```bash
-scp -r "C:\\Ruta-Proyecto-Publicado\\NameProject" root@&lt;IP_VPS&gt;:/var/www/api
+scp -r "C:\Ruta-Proyecto-Publicado\NameProject" root@<IP_VPS>:/var/www/api
 ```
 
 Asegúrese de reemplazar &lt;IP_VPS&gt; por la dirección IP real de su VPS.
@@ -742,7 +737,7 @@ Identifique la línea que contiene dotnet NameProject.dll y obtenga el **PID** (
 Detenga el proceso con:
 
 ```bash
-kill -9 &lt<PID>;
+kill -9 <PID>
 ```
 
 - **Volver a subir el proyecto actualizado**:
@@ -750,7 +745,7 @@ kill -9 &lt<PID>;
 Desde su equipo local:
 
 ```bash
-scp -r "C:\\Ruta-Proyecto-Publicado\\NameProject" root@<IP_VPS>:/var/www/api
+scp -r "C:\Ruta-Proyecto-Publicado\NameProject" root@<IP_VPS>:/var/www/api
 ```
 
 - **Reiniciar la API**:
@@ -831,32 +826,34 @@ on: push: branches: \[main\] # Cambie si usa otra rama
 jobs: deploy: runs-on: ubuntu-latest
 
 steps:  
-\- name: Checkout repository  
-uses: actions/checkout@v3  
-<br/>\- name: Setup .NET  
-uses: actions/setup-dotnet@v3  
-with:  
-dotnet-version: '8.0.x' # Cambie por la versión que usa su proyecto  
-<br/>\- name: Publish API  
-run: dotnet publish NameProject/NameProject.csproj -c Release -o publish  
-\# Reemplace la ruta por la ruta real de su archivo .csproj en el repositorio  
-<br/>\- name: Copy files to VPS via SSH  
-uses: appleboy/scp-action@v0.1.7  
-with:  
-host: ${{ secrets.VPS_HOST }}  
-username: ${{ secrets.VPS_USER }}  
-key: ${{ secrets.SSH_PRIVATE_KEY }}  
-source: publish/  
-target: /var/www/api/NameProject  
-<br/>\- name: Restart service on VPS  
-uses: appleboy/ssh-action@v1.0.0  
-with:  
-host: ${{ secrets.VPS_HOST }}  
-username: ${{ secrets.VPS_USER }}  
-key: ${{ secrets.SSH_PRIVATE_KEY }}  
-script: |  
-systemctl restart nameproject.service  
-\# Cambie 'nameproject' por el nombre real del servicio creado  
+- name: Checkout repository  
+  uses: actions/checkout@v3
+
+- name: Setup .NET  
+  uses: actions/setup-dotnet@v3  
+  with:  
+  dotnet-version: '8.0.x' # Cambie por la versión que usa su proyecto
+
+- name: Publish API  
+  run: dotnet publish NameProject/NameProject.csproj -c Release -o publish  # Reemplace la ruta por la ruta real de su archivo .csproj en el repositorio
+
+- name: Copy files to VPS via SSH
+  uses: appleboy/scp-action@v0.1.7  
+  with:  
+  host: ${{ secrets.VPS_HOST }}  
+  username: ${{ secrets.VPS_USER }}  
+  key: ${{ secrets.SSH_PRIVATE_KEY }}  
+  source: publish/  
+  target: /var/www/api/NameProject
+
+- name: Restart service on VPS  
+  uses: appleboy/ssh-action@v1.0.0  
+  with:  
+  host: ${{ secrets.VPS_HOST }}  
+  username: ${{ secrets.VPS_USER }}  
+  key: ${{ secrets.SSH_PRIVATE_KEY }}  
+  script: |  
+  systemctl restart nameproject.service  # Cambie 'nameproject' por el nombre real del servicio creado  
 ```
 
 En su primer push, es normal que el último paso falle, ya que el servicio aún no ha sido creado en la VPS. Esto se resolverá al configurar el servicio en la siguiente sección.
@@ -896,11 +893,13 @@ sudo nano /etc/systemd/system/nameproject.service
 Se abrirá un archivo vacío. Ingrese el siguiente contenido, adaptado a su proyecto:
 
 ```bash
-\[Unit\] Description=API .NET de Productos After=network.target
+[Unit] Description=API .NET de Productos After=network.target
 
-\[Service\] WorkingDirectory=/var/www/api/NameProject/publish/ ExecStart=/usr/bin/dotnet /var/www/api/NameProject/publish/NameProject.dll Restart=always RestartSec=5 KillSignal=SIGINT SyslogIdentifier=nameproject User=root Environment=ASPNETCORE_ENVIRONMENT=Production Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+[Service] WorkingDirectory=/var/www/api/NameProject/publish/ ExecStart=/usr/bin/dotnet /var/www/api/NameProject/publish/NameProject.dll Restart=always RestartSec=5 KillSignal=SIGINT SyslogIdentifier=nameproject
 
-\[Install\] WantedBy=multi-user.target
+User=root Environment=ASPNETCORE_ENVIRONMENT=Production Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install] WantedBy=multi-user.target
 ```
 
 ¿Qué es ExecStart?
@@ -991,20 +990,20 @@ sudo nano /etc/nginx/sites-available/nameproject
 Ingrese el siguiente contenido (ajuste el puerto si su API no usa el 5000):
 
 ```bash
-server { listen 80; server_name \_;
-
-location / {  
-proxy_pass [http://localhost:5000](http://localhost:5000/);  
-proxy_http_version 1.1;  
-proxy_set_header Upgrade $http_upgrade;  
-proxy_set_header Connection keep-alive;  
-proxy_set_header Host $host;  
-proxy_cache_bypass $http_upgrade;  
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-proxy_set_header X-Forwarded-Proto $scheme;  
-}  
-
+server { listen 80; server_name _;
+location / {
+    proxy_pass         http://localhost:5000;
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade $http_upgrade;
+    proxy_set_header   Connection keep-alive;
+    proxy_set_header   Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
 }
+ 
+}
+
 ```
 
 Reemplace el puerto 5000 por el puerto real en el que su API esté corriendo.
@@ -1238,20 +1237,18 @@ Y escriba en él algo como esto (modifique el nombre del subdominio y el puerto)
 
 ```bash
 server { listen 80; server_name apinameproject.midominio.com;
-
-location / {  
-proxy_pass [http://localhost:5100](http://localhost:5100/);  
-proxy_http_version 1.1;  
-proxy_set_header Upgrade $http_upgrade;  
-proxy_set_header Connection keep-alive;  
-proxy_set_header Host $host;  
-proxy_cache_bypass $http_upgrade;  
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-proxy_set_header X-Forwarded-Proto $scheme;  
-}  
-
+location / {
+    proxy_pass         http://localhost:5100;
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade $http_upgrade;
+    proxy_set_header   Connection keep-alive;
+    proxy_set_header   Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
 }
-
+ 
+}
 ```
 
 Cambie:
@@ -1294,20 +1291,18 @@ Modifica el parámetro server_name para que coincida con el dominio configurado 
 
 ```bash
 server { listen 80; server_name api.midominio.com;
-
-location / {  
-proxy_pass [http://localhost:5000](http://localhost:5000/); # Cambie al puerto donde corre su API  
-proxy_http_version 1.1;  
-proxy_set_header Upgrade $http_upgrade;  
-proxy_set_header Connection keep-alive;  
-proxy_set_header Host $host;  
-proxy_cache_bypass $http_upgrade;  
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-proxy_set_header X-Forwarded-Proto $scheme;  
-}  
-
+location / {
+    proxy_pass         http://localhost:5000;  # Cambie al puerto donde corre su API
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade $http_upgrade;
+    proxy_set_header   Connection keep-alive;
+    proxy_set_header   Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
 }
-
+ 
+}
 ```
 
 Asegúrate de usar el puerto correcto si tu API no corre en 5000.
@@ -1392,11 +1387,13 @@ sudo nano /etc/systemd/system/nameproject.service
 Contenido del archivo (modificar rutas y nombre del proyecto):
 
 ```bash
-\[Unit\] Description=API .NET de Productos After=network.target
+[Unit] Description=API .NET de Productos After=network.target
 
-\[Service\] WorkingDirectory=/var/www/api/NameProject/publish/ ExecStart=/usr/bin/dotnet /var/www/api/NameProject/publish/NameProject.dll Restart=always RestartSec=5 KillSignal=SIGINT SyslogIdentifier=nameproject User=root Environment=ASPNETCORE_ENVIRONMENT=Production Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+[Service] WorkingDirectory=/var/www/api/NameProject/publish/ ExecStart=/usr/bin/dotnet /var/www/api/NameProject/publish/NameProject.dll Restart=always RestartSec=5 KillSignal=SIGINT SyslogIdentifier=nameproject
 
-\[Install\] WantedBy=multi-user.target
+User=root Environment=ASPNETCORE_ENVIRONMENT=Production Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install] WantedBy=multi-user.target
 ```
 
 Activar el servicio:
@@ -1419,19 +1416,18 @@ Contenido del archivo:
 
 ```bash
 server { listen 80; server_name api.midominio.com;
-
-location / {  
-proxy_pass [http://localhost:5000](http://localhost:5000/);  
-proxy_http_version 1.1;  
-proxy_set_header Upgrade $http_upgrade;  
-proxy_set_header Connection keep-alive;  
-proxy_set_header Host $host;  
-proxy_cache_bypass $http_upgrade;  
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
-proxy_set_header X-Forwarded-Proto $scheme;  
+location / {
+    proxy_pass         http://localhost:5000;
+    proxy_http_version 1.1;
+    proxy_set_header   Upgrade $http_upgrade;
+    proxy_set_header   Connection keep-alive;
+    proxy_set_header   Host $host;
+    proxy_cache_bypass $http_upgrade;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header   X-Forwarded-Proto $scheme;
+}
 }
 
-}
 ```
 
 ## 13.3 Activar y recargar configuración NGINX
@@ -1461,7 +1457,7 @@ sudo certbot --nginx -d api.midominio.com
 Desde su máquina local (Windows):
 
 ```bash
-scp -r C:/Ruta/Del/Proyecto/\* root@IP_VPS:/var/www/api
+scp -r C:/Ruta/Del/Proyecto/* root@IP_VPS:/var/www/api
 ```
 
 Reemplace C:/Ruta/Del/Proyecto/ por la ruta local al proyecto publicado
