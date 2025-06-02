@@ -1100,7 +1100,6 @@ A continuación se explica a detalle todas las diferencias y características a 
 | **Característica** | **🧭 Dominio** | **🖥️ Hosting (compartido)** | **💻 VPS (Servidor Privado Virtual)** |
 | --- | --- | --- | --- |
 | ¿Qué es? | Nombre o dirección del sitio web | Espacio en un servidor para alojar tu sitio | Servidor virtual con recursos dedicados |
-| --- | --- | --- | --- |
 | Función principal | Redirigir usuarios al sitio (resuelve a una IP) | Almacenar los archivos del sitio web | Control completo del entorno del servidor |
 | Accesible por humanos | ✅ Sí (nombre amigable) | 🚫 No directamente | 🚫 No directamente |
 | Requiere conocimientos técnicos | ❌ No | ❌ No (en la mayoría de casos) | ✅ Sí (manejo de sistema operativo, terminal) |
