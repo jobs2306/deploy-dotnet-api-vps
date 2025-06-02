@@ -56,7 +56,7 @@ Actualmente, existen múltiples proveedores que ofrecen servicios de VPS, entre 
 
 Para este manual se utilizará Hostinger como proveedor de referencia, ya que al momento de su redacción ofrece una de las mejores relaciones calidad-precio del mercado, siendo una opción accesible y confiable para desplegar servicios backend con .NET.
 
-## 1.3 ¿Quién presta el servicio de VPS?
+## 1.3 ¿Qué sistema operativo instalar?
 
 Una VPS permite instalar prácticamente cualquier sistema operativo, incluyendo distribuciones de Linux y versiones de Windows Server. Sin embargo, es importante tener en cuenta que los recursos de la VPS (procesamiento, memoria RAM y almacenamiento) suelen estar limitados según el plan contratado, y que aumentar dichos recursos incrementa el costo del servicio.
 
