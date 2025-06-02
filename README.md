@@ -464,10 +464,10 @@ sudo systemctl enable docker
 ### 5.3.3 Ejecutar SQL Server en un contenedor
 
 ```bash
-sudo docker run -e 'ACCEPT_EULA=Y'
-\-e 'MSSQL_SA_PASSWORD=TuClaveSegura123!'
-\-p 1433:1433 --name sqlserver
-\-d mcr.microsoft.com/mssql/server:2022-latest
+sudo docker run -e 'ACCEPT_EULA=Y' 
+-e 'MSSQL_SA_PASSWORD=TuClaveSegura123!' 
+-p 1433:1433 --name sqlserver 
+-d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
 Cambia TuClaveSegura123! por una contraseña segura que cumpla los requisitos de complejidad de SQL Server.
@@ -585,7 +585,7 @@ Durante el proceso:
 Desde su equipo, ejecute el siguiente comando (reemplazando la IP):
 
 ```bash
-scp C:\\Users\\TuUsuario.ssh\\id_ed25519.pub root@:/root/
+scp C:\Users\TuUsuario.ssh\id_ed25519.pub root@:/root/
 ```
 
 Ingrese la contraseña del VPS cuando sea solicitada. Esto copiará el archivo id_ed25519.pub al directorio raíz de la VPS.
@@ -614,7 +614,7 @@ Estos pasos:
 Desde su equipo, pruebe la conexión especificando la clave privada:
 
 ```bash
-ssh -i C:\\Users\\TuUsuario.ssh\\id_ed25519 root@ &lt;IP_VPS&gt;
+ssh -i C:\Users\TuUsuario.ssh\id_ed25519 root@<IP_VPS>
 ```
 
 Si la configuración fue exitosa, accederá a la VPS sin que se le solicite la contraseña.
@@ -622,7 +622,7 @@ Si la configuración fue exitosa, accederá a la VPS sin que se le solicite la c
 A partir de este punto, podrá conectarse directamente con:
 
 ```bash
-ssh root@&lt;IP_VPS&gt;
+ssh root@<IP_VPS>
 ```
 
 Este método es más seguro que el uso de contraseñas, siempre que la clave privada esté bien protegida.
@@ -675,7 +675,7 @@ En esta sección se explica cómo publicar, subir y ejecutar manualmente una Web
 Desde su equipo local (Windows), abra una terminal o consola y publique su proyecto .NET en modo Release:
 
 ```bash
-dotnet publish -c Release -o "C:\\Ruta-Proyecto-Publicado\\NameProject"
+dotnet publish -c Release -o "C:\Ruta-Proyecto-Publicado\NameProject"
 ```
 
 Esto generará los archivos de salida en la carpeta especificada. NameProject será el nombre de la carpeta a transferir.
@@ -821,39 +821,43 @@ Agregue el siguiente contenido, adaptándolo según su proyecto:
 ```bash
 name: Deploy .NET API to VPS
 
-on: push: branches: \[main\] # Cambie si usa otra rama
+on:
+  push:
+    branches: [main] # Cambie si usa otra rama
 
-jobs: deploy: runs-on: ubuntu-latest
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-steps:  
-- name: Checkout repository  
-  uses: actions/checkout@v3
+    steps:
+    - name: Checkout repository  
+      uses: actions/checkout@v3
 
-- name: Setup .NET  
-  uses: actions/setup-dotnet@v3  
-  with:  
-  dotnet-version: '8.0.x' # Cambie por la versión que usa su proyecto
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3  
+      with:  
+        dotnet-version: '8.0.x' # Cambie por la versión que usa su proyecto
 
-- name: Publish API  
-  run: dotnet publish NameProject/NameProject.csproj -c Release -o publish  # Reemplace la ruta por la ruta real de su archivo .csproj en el repositorio
+    - name: Publish API  
+      run: dotnet publish NameProject/NameProject.csproj -c Release -o publish  # Reemplace la ruta por la ruta real de su archivo .csproj en el repositorio
 
-- name: Copy files to VPS via SSH
-  uses: appleboy/scp-action@v0.1.7  
-  with:  
-  host: ${{ secrets.VPS_HOST }}  
-  username: ${{ secrets.VPS_USER }}  
-  key: ${{ secrets.SSH_PRIVATE_KEY }}  
-  source: publish/  
-  target: /var/www/api/NameProject
+    - name: Copy files to VPS via SSH
+        uses: appleboy/scp-action@v0.1.7  
+        with:  
+          host: ${{ secrets.VPS_HOST }}  
+          username: ${{ secrets.VPS_USER }}  
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  
+          source: publish/  
+          target: /var/www/api/NameProject
 
-- name: Restart service on VPS  
-  uses: appleboy/ssh-action@v1.0.0  
-  with:  
-  host: ${{ secrets.VPS_HOST }}  
-  username: ${{ secrets.VPS_USER }}  
-  key: ${{ secrets.SSH_PRIVATE_KEY }}  
-  script: |  
-  systemctl restart nameproject.service  # Cambie 'nameproject' por el nombre real del servicio creado  
+    - name: Restart service on VPS  
+      uses: appleboy/ssh-action@v1.0.0  
+      with:  
+        host: ${{ secrets.VPS_HOST }}  
+        username: ${{ secrets.VPS_USER }}  
+        key: ${{ secrets.SSH_PRIVATE_KEY }}  
+        script: |  
+          systemctl restart nameproject.service  # Cambie 'nameproject' por el nombre real del servicio creado  
 ```
 
 En su primer push, es normal que el último paso falle, ya que el servicio aún no ha sido creado en la VPS. Esto se resolverá al configurar el servicio en la siguiente sección.
