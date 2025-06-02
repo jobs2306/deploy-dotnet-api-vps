@@ -1,4 +1,4 @@
-#MANUAL PARA CONFIGURACIÓN VPS LINUX PARA BACK-END .NET
+# MANUAL PARA CONFIGURACIÓN VPS LINUX PARA BACK-END .NET
 
 Este manual técnico guía paso a paso el proceso completo para desplegar una Web API .NET en un entorno de producción real utilizando una VPS Linux conectada a un dominio personalizado. Desde la adquisición del servicio, configuración del sistema operativo, instalación de .NET, MySQL y SQL Server, hasta la publicación de la API mediante NGINX como proxy inverso, con seguridad HTTPS y despliegue automatizado a través de GitHub Actions (CI/CD).
 
